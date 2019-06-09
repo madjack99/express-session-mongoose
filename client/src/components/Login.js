@@ -1,8 +1,51 @@
 import React, { Component } from "react";
+import { Container, Form, FormGroup, Label, Input } from "reactstrap";
 
 export class Login extends Component {
+  state = {
+    email: "",
+    password: ""
+  };
+
+  handleChange = e => {
+    this.setState({
+      [e.target.id]: e.target.value
+    });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    console.log(this.state);
+  };
+
   render() {
-    return <div>Login</div>;
+    return (
+      <Container>
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup>
+            <Label for="email">Email</Label>
+            <Input
+              type="email"
+              name="email"
+              id="email"
+              onChange={this.handleChange}
+              required
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="password">Password</Label>
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              onChange={this.handleChange}
+              required
+            />
+          </FormGroup>
+          <Input type="submit" className="bg-info" />
+        </Form>
+      </Container>
+    );
   }
 }
 
