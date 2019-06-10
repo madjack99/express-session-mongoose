@@ -28,6 +28,7 @@ export class Login extends Component {
         const { loggedUser } = res.data;
         if (loggedUser) {
           this.setState({ loggedUser, error: null });
+          localStorage.setItem("activeUser", loggedUser);
         }
         this.props.history.push("/");
       })

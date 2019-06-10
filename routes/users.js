@@ -60,7 +60,7 @@ router.post("/login", (req, res) => {
 
 //@route  /api/users/all
 //@desc   show all users
-//@access Privat
+//@access Private
 router.get("/all", loginRedirect, (req, res) => {
   User.find()
     .then(users => res.json(users))
@@ -130,6 +130,9 @@ router.post("/register", (req, res) => {
     .catch(err => console.log(err));
 });
 
+//@route  POST /api/users/logout
+//@descr  Destroy the session
+//@acces  Private
 router.post("/logout", loginRedirect, (req, res) => {
   req.session.destroy(err => {
     if (err) return res.redirect("/home");
