@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { Form, FormGroup, Label, Input, Button, Container } from "reactstrap";
+import axios from "axios";
+import {
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  Container,
+  Alert
+} from "reactstrap";
 
 export class Register extends Component {
   state = {
@@ -17,10 +26,31 @@ export class Register extends Component {
   };
 
   handleSubmit = e => {
-    e.prevent.default();
+    e.preventDefault();
+    const { name, email, password } = this.state;
+    axios
+      .post("/api/users/register", {
+        name,
+        email,
+        password
+      })
+      .then(res => {
+        const { loggedUser } = res.data;
+        if (loggedUser) {
+          this.setState({ loggedUser, error: null });
+        }
+        this.props.history.push("/");
+      })
+      .catch(err => {
+        const error = err.response.data.msg;
+        if (error) {
+          this.setState({ error, name: "", email: "", password: "" });
+        }
+      });
   };
 
   render() {
+    const { error } = this.state;
     return (
       <div>
         <Container>
@@ -31,9 +61,9 @@ export class Register extends Component {
                 type="text"
                 name="name"
                 id="nameInput"
-                required
                 value={this.state.name}
                 onChange={this.handleChange}
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -44,6 +74,7 @@ export class Register extends Component {
                 id="emailInput"
                 value={this.state.email}
                 onChange={this.handleChange}
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -54,12 +85,18 @@ export class Register extends Component {
                 id="passwordInput"
                 value={this.state.password}
                 onChange={this.handleChange}
+                required
               />
             </FormGroup>
             <Button className="bg-success" block>
               Regiser
             </Button>
           </Form>
+          {error ? (
+            <Alert className="mt-3" color="danger">
+              {error}
+            </Alert>
+          ) : null}
         </Container>
       </div>
     );

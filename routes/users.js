@@ -112,7 +112,15 @@ router.post("/register", (req, res) => {
       bcrypt.hash(newUser.password, 10).then(hash => {
         newUser.password = hash;
         // save new user to the DB
-        newUser.save().then(user => res.json({ user }));
+        newUser.save().then(user =>
+          res.json({
+            loggedUser: {
+              name: user.name,
+              email: user.email,
+              id: user._id
+            }
+          })
+        );
         // set identifier to the session i.e. if the user is
         // registered he's allowed to visit privat routes
         req.session.userId = newUser.id;
