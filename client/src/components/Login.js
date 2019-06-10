@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { Container, Form, FormGroup, Label, Input } from "reactstrap";
+import axios from "axios";
 
 export class Login extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    error: null,
+    loggedUser: null
   };
 
   handleChange = e => {
@@ -15,10 +18,27 @@ export class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    const { email, password } = this.state;
+    axios
+      .post("/api/users/login", {
+        email,
+        password
+      })
+      .then(res => {
+        const { loggedUser } = res.data;
+        if (loggedUser) {
+          this.setState({ loggedUser, error: null });
+        }
+      })
+      .catch(err => {
+        if (err.response.status === 400) {
+          this.setState({ error: err.response.data.msg });
+        }
+      });
   };
 
   render() {
+    console.log("From RENDER", this.state);
     return (
       <Container>
         <Form onSubmit={this.handleSubmit}>

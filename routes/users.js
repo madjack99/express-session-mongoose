@@ -46,10 +46,16 @@ router.post("/login", (req, res) => {
         if (!isMatch) return res.status(400).json({ msg: "Wrong password" });
 
         req.session.userId = user.id;
-        res.redirect("/home");
+        res.json({
+          loggedUser: {
+            id: user._id,
+            name: user.name,
+            email: user.email
+          }
+        });
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log("From FIND ONE CATCH", err));
 });
 
 //@route  /api/users/all
