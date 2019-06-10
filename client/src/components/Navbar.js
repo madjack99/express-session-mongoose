@@ -50,6 +50,15 @@ class MyNavbar extends Component {
                 Login
               </NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink
+                to="/logout"
+                className="mr-4 text-white"
+                onClick={this.toggle}
+              >
+                Logout
+              </NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
