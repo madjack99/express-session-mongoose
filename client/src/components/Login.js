@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Form, FormGroup, Label, Input } from "reactstrap";
+import { Container, Form, FormGroup, Label, Input, Alert } from "reactstrap";
 import axios from "axios";
 
 export class Login extends Component {
@@ -29,6 +29,7 @@ export class Login extends Component {
         if (loggedUser) {
           this.setState({ loggedUser, error: null });
         }
+        this.props.history.push("/");
       })
       .catch(err => {
         if (err.response.status === 400) {
@@ -39,6 +40,7 @@ export class Login extends Component {
 
   render() {
     console.log("From RENDER", this.state);
+    const { error } = this.state;
     return (
       <Container>
         <Form onSubmit={this.handleSubmit}>
@@ -64,6 +66,11 @@ export class Login extends Component {
           </FormGroup>
           <Input type="submit" className="bg-info" />
         </Form>
+        {error ? (
+          <Alert className="mt-3" color="danger">
+            {error}
+          </Alert>
+        ) : null}
       </Container>
     );
   }
