@@ -28,17 +28,25 @@ class MyNavbar extends Component {
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink to="/" className="mr-4 text-white">
+              <NavLink to="/" className="mr-4 text-white" onClick={this.toggle}>
                 Home
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/register" className="mr-4 text-white">
+              <NavLink
+                to="/register"
+                className="mr-4 text-white"
+                onClick={this.toggle}
+              >
                 Register
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/login" className="mr-4 text-white">
+              <NavLink
+                to="/login"
+                className="mr-4 text-white"
+                onClick={this.toggle}
+              >
                 Login
               </NavLink>
             </NavItem>

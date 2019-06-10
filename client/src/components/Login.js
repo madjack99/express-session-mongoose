@@ -33,7 +33,11 @@ export class Login extends Component {
       })
       .catch(err => {
         if (err.response.status === 400) {
-          this.setState({ error: err.response.data.msg });
+          this.setState({
+            error: err.response.data.msg,
+            email: "",
+            password: ""
+          });
         }
       });
   };
@@ -52,6 +56,7 @@ export class Login extends Component {
               id="email"
               onChange={this.handleChange}
               required
+              value={this.state.email}
             />
           </FormGroup>
           <FormGroup>
@@ -62,6 +67,7 @@ export class Login extends Component {
               id="password"
               onChange={this.handleChange}
               required
+              value={this.state.password}
             />
           </FormGroup>
           <Input type="submit" className="bg-info" />
