@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 import {
   Navbar,
   NavbarBrand,
@@ -21,7 +22,7 @@ class MyNavbar extends Component {
   };
 
   showNavItems = () => {
-    return this.props.user ? (
+    return this.props.loggedUser ? (
       <NavItem>
         <NavLink to="/logout" className="mr-4 text-white" onClick={this.toggle}>
           Logout
@@ -71,4 +72,8 @@ class MyNavbar extends Component {
   }
 }
 
-export default MyNavbar;
+const mapStateToProps = state => ({
+  loggedUser: state.users.loggedUser
+});
+
+export default connect(mapStateToProps)(MyNavbar);

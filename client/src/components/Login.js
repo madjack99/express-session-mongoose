@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Container, Form, FormGroup, Label, Input, Alert } from "reactstrap";
 import axios from "axios";
+import { connect } from "react-redux";
+import { addUser } from "../actions/userActions";
 
 export class Login extends Component {
   state = {
@@ -28,7 +30,7 @@ export class Login extends Component {
         const { loggedUser } = res.data;
         if (loggedUser) {
           this.setState({ loggedUser, error: null });
-          localStorage.setItem("activeUser", loggedUser);
+          this.props.addUser(loggedUser);
         }
         this.props.history.push("/");
       })
@@ -44,7 +46,6 @@ export class Login extends Component {
   };
 
   render() {
-    console.log("From RENDER", this.state);
     const { error } = this.state;
     return (
       <Container>
@@ -84,4 +85,7 @@ export class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(
+  null,
+  { addUser }
+)(Login);

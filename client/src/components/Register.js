@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
+import { addUser } from "../actions/userActions";
 import {
   Form,
   FormGroup,
@@ -38,7 +40,7 @@ export class Register extends Component {
         const { loggedUser } = res.data;
         if (loggedUser) {
           this.setState({ loggedUser, error: null });
-          localStorage.setItem("activeUser", loggedUser);
+          this.props.addUser(loggedUser);
         }
         this.props.history.push("/");
       })
@@ -105,4 +107,7 @@ export class Register extends Component {
   }
 }
 
-export default Register;
+export default connect(
+  null,
+  { addUser }
+)(Register);
