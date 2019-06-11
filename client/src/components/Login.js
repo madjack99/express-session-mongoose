@@ -48,6 +48,7 @@ export class Login extends Component {
     const { error } = this.state;
     return (
       <Container>
+        <h1>Log in</h1>
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label for="email">Email</Label>

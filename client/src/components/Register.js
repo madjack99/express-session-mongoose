@@ -38,6 +38,7 @@ export class Register extends Component {
         const { loggedUser } = res.data;
         if (loggedUser) {
           this.setState({ loggedUser, error: null });
+          localStorage.setItem("activeUser", loggedUser);
         }
         this.props.history.push("/");
       })
@@ -54,6 +55,7 @@ export class Register extends Component {
     return (
       <div>
         <Container>
+          <h1>Register</h1>
           <Form onSubmit={this.handleSubmit}>
             <FormGroup>
               <Label for="nameInput">Name</Label>
