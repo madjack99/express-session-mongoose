@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { getPosts } from "../actions/postActions";
 import {
   Container,
   Button,
@@ -12,7 +14,7 @@ import {
   Input
 } from "reactstrap";
 
-export default class Home extends Component {
+class Home extends Component {
   state = {
     modal: false,
     title: "",
@@ -36,6 +38,10 @@ export default class Home extends Component {
     console.log(this.state);
     this.toggle();
   };
+
+  componentDidMount() {
+    this.props.getPosts();
+  }
 
   render() {
     return (
@@ -69,7 +75,25 @@ export default class Home extends Component {
             </Form>
           </Container>
         </Modal>
+        {this.props.posts.map(post => {
+          return (
+            <div>
+              <h3>{post.title}</h3>
+              <p>{post.text}</p>
+              <h4>{post.author}</h4>
+            </div>
+          );
+        })}
       </Container>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  posts: state.posts.posts
+});
+
+export default connect(
+  mapStateToProps,
+  { getPosts }
+)(Home);
