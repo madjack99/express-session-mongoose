@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import {
   Navbar,
@@ -20,6 +20,37 @@ class MyNavbar extends Component {
     });
   };
 
+  showNavItems = () => {
+    return this.props.user ? (
+      <NavItem>
+        <NavLink to="/logout" className="mr-4 text-white" onClick={this.toggle}>
+          Logout
+        </NavLink>
+      </NavItem>
+    ) : (
+      <Fragment>
+        <NavItem>
+          <NavLink
+            to="/register"
+            className="mr-4 text-white"
+            onClick={this.toggle}
+          >
+            Register
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            to="/login"
+            className="mr-4 text-white"
+            onClick={this.toggle}
+          >
+            Login
+          </NavLink>
+        </NavItem>
+      </Fragment>
+    );
+  };
+
   render() {
     return (
       <Navbar color="dark" dark expand="md">
@@ -32,33 +63,7 @@ class MyNavbar extends Component {
                 Home
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink
-                to="/register"
-                className="mr-4 text-white"
-                onClick={this.toggle}
-              >
-                Register
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                to="/login"
-                className="mr-4 text-white"
-                onClick={this.toggle}
-              >
-                Login
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                to="/logout"
-                className="mr-4 text-white"
-                onClick={this.toggle}
-              >
-                Logout
-              </NavLink>
-            </NavItem>
+            {this.showNavItems()}
           </Nav>
         </Collapse>
       </Navbar>
