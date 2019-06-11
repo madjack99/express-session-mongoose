@@ -31,6 +31,7 @@ app.use(
 );
 
 app.use("/api/users", require("./routes/users"));
+app.use("/api/posts", require("./routes/posts"));
 
 app.get("/home", (req, res) => {
   console.log("/home\n", req.session);
