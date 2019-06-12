@@ -54,12 +54,16 @@ class Home extends Component {
   render() {
     return (
       <Container>
-        <h1 className="bg-success p-2 mt-1 rounded text-center">
-          Login to create post
-        </h1>
-        <Button color="danger" onClick={this.toggle}>
-          CreatePost
-        </Button>
+        {!this.props.loggedUser ? (
+          <h1 className="bg-danger p-2 mt-1 rounded text-center">
+            Login to create post
+          </h1>
+        ) : (
+          <Button className="mt-3" color="danger" onClick={this.toggle}>
+            CreatePost
+          </Button>
+        )}
+
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Create you post</ModalHeader>
           <Container>
@@ -90,7 +94,7 @@ class Home extends Component {
               <CardBody>
                 <CardText>{post.text}</CardText>
               </CardBody>
-              <CardFooter>{post.author}</CardFooter>
+              <CardFooter>By: {post.author}</CardFooter>
             </Card>
           );
         })}

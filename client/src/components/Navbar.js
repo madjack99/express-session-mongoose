@@ -1,14 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarToggler,
-  Collapse,
-  Nav,
-  NavItem
-} from "reactstrap";
+import { Navbar, NavbarToggler, Collapse, Nav, NavItem } from "reactstrap";
 
 class MyNavbar extends Component {
   state = {
@@ -55,7 +48,9 @@ class MyNavbar extends Component {
   render() {
     return (
       <Navbar color="dark" dark expand="md">
-        <NavbarBrand href="/">My Site</NavbarBrand>
+        <NavLink className="text-danger text-decoration-none" to="/">
+          <h2>Login & post</h2>
+        </NavLink>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
