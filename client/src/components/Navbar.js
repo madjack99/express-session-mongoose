@@ -49,7 +49,7 @@ class MyNavbar extends Component {
     return (
       <Navbar color="dark" dark expand="md">
         <NavLink className="text-danger text-decoration-none" to="/">
-          <h2>Login & post</h2>
+          <h2>Site for posts</h2>
         </NavLink>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>

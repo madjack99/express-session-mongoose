@@ -51,6 +51,32 @@ class Home extends Component {
     this.props.getPosts();
   }
 
+  displayPosts = () => {
+    const { loggedUser } = this.props;
+    return this.props.posts.map(post => {
+      return (
+        <Card className="mt-3 position-relative" key={post._id}>
+          <CardHeader>
+            {post.title}
+            {loggedUser && post.author === loggedUser.name ? (
+              <Button
+                className="bg-danger ml-auto position-absolute"
+                style={{ top: 10, right: 10 }}
+                size="sm"
+              >
+                x
+              </Button>
+            ) : null}
+          </CardHeader>
+          <CardBody>
+            <CardText>{post.text}</CardText>
+          </CardBody>
+          <CardFooter>By: {post.author}</CardFooter>
+        </Card>
+      );
+    });
+  };
+
   render() {
     return (
       <Container>
@@ -87,17 +113,7 @@ class Home extends Component {
             </Form>
           </Container>
         </Modal>
-        {this.props.posts.map(post => {
-          return (
-            <Card className="mt-3" key={post._id}>
-              <CardHeader>{post.title}</CardHeader>
-              <CardBody>
-                <CardText>{post.text}</CardText>
-              </CardBody>
-              <CardFooter>By: {post.author}</CardFooter>
-            </Card>
-          );
-        })}
+        {this.displayPosts()}
       </Container>
     );
   }
