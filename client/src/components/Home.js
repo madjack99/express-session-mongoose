@@ -9,7 +9,12 @@ import {
   Form,
   FormGroup,
   Label,
-  Input
+  Input,
+  Card,
+  CardBody,
+  CardText,
+  CardHeader,
+  CardFooter
 } from "reactstrap";
 
 class Home extends Component {
@@ -80,11 +85,13 @@ class Home extends Component {
         </Modal>
         {this.props.posts.map(post => {
           return (
-            <div key={post._id}>
-              <h3>{post.title}</h3>
-              <p>{post.text}</p>
-              <h4>{post.author}</h4>
-            </div>
+            <Card className="mt-3" key={post._id}>
+              <CardHeader>{post.title}</CardHeader>
+              <CardBody>
+                <CardText>{post.text}</CardText>
+              </CardBody>
+              <CardFooter>{post.author}</CardFooter>
+            </Card>
           );
         })}
       </Container>
