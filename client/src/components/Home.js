@@ -6,8 +6,6 @@ import {
   Button,
   Modal,
   ModalHeader,
-  ModalBody,
-  ModelFooter,
   Form,
   FormGroup,
   Label,
@@ -39,7 +37,7 @@ class Home extends Component {
     this.props.addPost({
       title,
       text,
-      author: this.props.loggedUser
+      author: this.props.loggedUser.name
     });
     this.toggle();
   };
@@ -96,7 +94,7 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
   posts: state.posts.posts,
-  loggedUser: state.users.loggeduser
+  loggedUser: state.users.loggedUser
 });
 
 export default connect(
