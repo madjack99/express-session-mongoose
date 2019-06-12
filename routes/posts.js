@@ -7,6 +7,7 @@ const Post = require("../models/Post");
 //@acces  Public
 router.get("/", (req, res) => {
   Post.find()
+    .sort({ date: -1 })
     .then(posts => res.json(posts))
     .catch(err => console.log(err));
 });
@@ -25,6 +26,17 @@ router.post("/create", (req, res) => {
     .save()
     .then(newPost => res.json(newPost))
     .catch(err => console.log(err));
+});
+
+//@route Delete /api/posts/delete
+//@descr Delete a post
+//@acces Private
+router.delete("/delete", (req, res) => {
+  const { id } = req.body;
+  console.log(id);
+  Post.findById(id)
+    .then(post => post.remove().then(() => res.json({ msg: "Post removed" })))
+    .catch(err => res.status(404).json({ msg: "failed to remove" }));
 });
 
 module.exports = router;
