@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getPosts } from "../actions/postActions";
+import { getPosts, addPost } from "../actions/postActions";
 import {
   Container,
   Button,
@@ -35,7 +35,12 @@ class Home extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    const { title, text } = this.state;
+    this.props.addPost({
+      title,
+      text,
+      author: this.props.loggedUser
+    });
     this.toggle();
   };
 
@@ -77,7 +82,7 @@ class Home extends Component {
         </Modal>
         {this.props.posts.map(post => {
           return (
-            <div>
+            <div key={post._id}>
               <h3>{post.title}</h3>
               <p>{post.text}</p>
               <h4>{post.author}</h4>
@@ -90,10 +95,11 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  posts: state.posts.posts
+  posts: state.posts.posts,
+  loggedUser: state.users.loggeduser
 });
 
 export default connect(
   mapStateToProps,
-  { getPosts }
+  { getPosts, addPost }
 )(Home);

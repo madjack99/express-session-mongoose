@@ -11,3 +11,17 @@ export const getPosts = () => dispatch => {
     })
     .catch(err => console.log(err));
 };
+
+export const addPost = newPost => dispatch => {
+  axios
+    .post("/api/posts/create", {
+      ...newPost
+    })
+    .then(res => {
+      dispatch({
+        type: "ADD_POST",
+        payload: res.data
+      });
+    })
+    .catch(err => console.log(err));
+};
