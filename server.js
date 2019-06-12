@@ -10,11 +10,15 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// connect to mongo databse
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("connected to MongoDB"))
   .catch(err => console.log(err));
 
+// use express session to track the user and prevent
+// the user from getting to the pages which require
+// authentication
 app.use(
   session({
     name: "MY_SESSION",
@@ -30,6 +34,7 @@ app.use(
   })
 );
 
+// use different routes for users and posts
 app.use("/api/users", require("./routes/users"));
 app.use("/api/posts", require("./routes/posts"));
 

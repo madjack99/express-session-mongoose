@@ -37,6 +37,8 @@ export class Register extends Component {
         password
       })
       .then(res => {
+        // extract loggedUser from the response
+        // and pass it to addUser action creator
         const { loggedUser } = res.data;
         if (loggedUser) {
           this.setState({ loggedUser, error: null });
@@ -46,6 +48,8 @@ export class Register extends Component {
       })
       .catch(err => {
         const error = err.response.data.msg;
+        // if error happens pass it to state and nullify
+        // email and password values
         if (error) {
           this.setState({ error, name: "", email: "", password: "" });
         }

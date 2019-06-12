@@ -27,6 +27,8 @@ export class Login extends Component {
         password
       })
       .then(res => {
+        // extract loggedUser from the response
+        // and pass it to addUser action creator
         const { loggedUser } = res.data;
         if (loggedUser) {
           this.setState({ loggedUser, error: null });
@@ -36,6 +38,8 @@ export class Login extends Component {
       })
       .catch(err => {
         if (err.response.status === 400) {
+          // if error happens send it to the state and show the
+          // error message from the server in the component
           this.setState({
             error: err.response.data.msg,
             email: "",

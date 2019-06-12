@@ -8,12 +8,15 @@ class MyNavbar extends Component {
     isOpen: false
   };
 
+  // toggler to control navbar in responsive design
   toggle = () => {
     this.setState({
       isOpen: !this.state.isOpen
     });
   };
 
+  // show different links depending if
+  // the user in logged in or not
   showNavItems = () => {
     return this.props.loggedUser ? (
       <NavItem>

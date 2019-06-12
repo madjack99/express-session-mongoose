@@ -27,7 +27,6 @@ export const addPost = newPost => dispatch => {
 };
 
 export const deletePost = id => dispatch => {
-  console.log("ID from delete action: ", id);
   axios
     .delete("/api/posts/delete", { data: { id } })
     .then(res => {

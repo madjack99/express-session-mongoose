@@ -24,6 +24,7 @@ class Home extends Component {
     text: ""
   };
 
+  // toggle for reactstrap Modal
   toggle = () => {
     this.setState({
       modal: !this.state.modal
@@ -39,6 +40,8 @@ class Home extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { title, text } = this.state;
+    // Pass data to addPost action creator and
+    // attach the user from the session to the post
     this.props.addPost({
       title,
       text,
@@ -47,12 +50,13 @@ class Home extends Component {
     this.toggle();
   };
 
+  // retrieve data from the database
   componentDidMount() {
     this.props.getPosts();
   }
 
+  // pass id to deletePost action creator
   handleDelete = id => {
-    console.log("ID from handle delete:", id);
     this.props.deletePost(id);
   };
 
@@ -63,6 +67,7 @@ class Home extends Component {
         <Card className="mt-3 position-relative" key={post._id}>
           <CardHeader>
             {post.title}
+            {/* show delete button for users who created them */}
             {loggedUser && post.author === loggedUser.name ? (
               <Button
                 className="bg-danger ml-auto position-absolute"
@@ -86,6 +91,7 @@ class Home extends Component {
   render() {
     return (
       <Container>
+        {/* show createPost button only for registered/loggedin users */}
         {!this.props.loggedUser ? (
           <h1 className="bg-danger p-2 mt-1 rounded text-center">
             Login to create post
