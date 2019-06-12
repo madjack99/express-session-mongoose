@@ -3,17 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 
 const User = require("../models/User");
-
-// Check if the user is registered
-// If not: redirect to login
-const loginRedirect = (req, res, next) => {
-  const { userId } = req.session;
-  if (!userId) {
-    res.redirect("/api/users/login");
-  } else {
-    next();
-  }
-};
+const loginRedirect = require("./middleware");
 
 //@route  /api/users/login
 //@desc   login page

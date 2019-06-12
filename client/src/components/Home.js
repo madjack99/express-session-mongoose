@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getPosts, addPost } from "../actions/postActions";
+import { getPosts, addPost, deletePost } from "../actions/postActions";
 import {
   Container,
   Button,
@@ -51,6 +51,11 @@ class Home extends Component {
     this.props.getPosts();
   }
 
+  handleDelete = id => {
+    console.log("ID from handle delete:", id);
+    this.props.deletePost(id);
+  };
+
   displayPosts = () => {
     const { loggedUser } = this.props;
     return this.props.posts.map(post => {
@@ -63,6 +68,7 @@ class Home extends Component {
                 className="bg-danger ml-auto position-absolute"
                 style={{ top: 10, right: 10 }}
                 size="sm"
+                onClick={() => this.handleDelete(post._id)}
               >
                 x
               </Button>
@@ -126,5 +132,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getPosts, addPost }
+  { getPosts, addPost, deletePost }
 )(Home);

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post");
+const loginRedirect = require("./middleware");
 
 //@route  /api/posts
 //@descr  Show all posts
@@ -15,7 +16,7 @@ router.get("/", (req, res) => {
 //@route  /api/posts/create
 //@descr  Create new post
 //@acces  Privat
-router.post("/create", (req, res) => {
+router.post("/create", loginRedirect, (req, res) => {
   const { title, text, author } = req.body;
   const newPost = new Post({
     title,
@@ -31,9 +32,9 @@ router.post("/create", (req, res) => {
 //@route Delete /api/posts/delete
 //@descr Delete a post
 //@acces Private
-router.delete("/delete", (req, res) => {
+router.delete("/delete", loginRedirect, (req, res) => {
   const { id } = req.body;
-  console.log(id);
+  console.log("ID from delete router:", req.body);
   Post.findById(id)
     .then(post => post.remove().then(() => res.json({ msg: "Post removed" })))
     .catch(err => res.status(404).json({ msg: "failed to remove" }));

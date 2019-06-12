@@ -6,7 +6,7 @@ import { removeUser } from "../actions/userActions";
 function Logout(props) {
   axios
     .post("/api/users/logout")
-    .then(res => res.json({ msg: "You have logged out" }))
+    .then(res => {})
     .catch(err => console.log("ERROR from logout", err));
   props.removeUser();
   props.history.push("/login");
