@@ -19,7 +19,7 @@
     "connect-mongo": "^2.0.3",
     "express": "^4.17.1",
     "express-session": "^1.16.1",
-    "mongoose": "^5.5.11"
+    "mongoose": "^5.7.5"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
